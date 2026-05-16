@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Fahrul</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10%;
+            background-color: #ffffff;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #111111;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active-menu {
+            color: #666666;
+        }
+
+        .page-section {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #main-page {
+            display: block;
+        }
+
+        .hero-banner {
+            width: 100%;
+            background-color: #000000;
+            aspect-ratio: 21 / 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-banner:hover img {
+            transform: scale(1.02);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-overlay h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 40px 10%;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            background-color: #f7f7f7;
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        #detail-page, #more-works-subpage {
+            display: none;
+        }
+
+        .detail-hero {
+            width: 100%;
+            aspect-ratio: 21 / 9;
+            background-color: #111;
+            overflow: hidden;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .detail-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-content {
+            max-width: 100%;
+            padding: 60px 10%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+        }
+
+        .video-section-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 10;
+            display: block;
+        }
+
+        .video-thumbnail-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .play-button-overlay::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 18px 0 18px 28px;
+            border-color: transparent transparent transparent #111111;
+            margin-left: 6px;
+        }
+
+        .video-thumbnail-wrapper:hover .play-button-overlay {
+            background: rgba(255, 255, 255, 1);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .main-video-player {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: none;
+        }
+
+        .see-more-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            background-color: #111111;
+            color: #ffffff;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .see-more-btn:hover {
+            background-color: #444444;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .mobile-video-overlay {
+            display: none;
+        }
+
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #111111;
+            padding-top: 25px;
+        }
+
+        .project-info h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .project-meta {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #555555;
+            margin-bottom: 30px;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 40px;
+        }
+
+        .photo-grid-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #111111;
+            border-top: 1px solid #eeeeee;
+            padding-top: 25px;
+        }
+
+        .project-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .photo-item {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            margin-top: 20px;
+            align-self: flex-start;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #111111;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #111111;
+            transition: opacity 0.2s;
+        }
+
+        .back-button:hover {
+            opacity: 0.6;
+        }
+
+        .subpage-header {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #111111;
+            padding-bottom: 20px;
+        }
+
+        .subpage-title {
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 30px;
+        }
+
+        .more-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .more-works-item-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .more-works-item {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .more-works-item:hover .play-button-overlay {
+            background: rgba(255, 255, 255, 1);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .more-works-title {
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #111111;
+        }
+
+        .subpage-video-slot {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .menu-page-container {
+            max-width: 100%;
+            padding: 80px 10%;
+            min-height: 60vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .menu-page-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-page-header {
+            border-bottom: 1px solid #111111;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .menu-page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-page-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333333;
+        }
+
+        .contact-group {
+            margin-bottom: 25px;
+        }
+
+        .contact-label {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #111111;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #111111;
+            color: #ffffff;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.1);
+            background-color: #666666;
+        }
+
+        .contact-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .menu-page-image-slot {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background-color: #f7f7f7;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .menu-page-image-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        #technology-page, #careers-page, #more-page {
+            display: none;
+        }
+
+        .image-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80%;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            object-fit: contain;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #ffffff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .close-lightbox:hover {
+            color: #bbbbbb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 0 40px 0;
+            font-size: 0.75rem;
+            color: #999999;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-top: 1px solid #eeeeee;
+            margin: 0 10%;
+        }
+
+        @media (max-width: 992px) {
+            .detail-content, .menu-page-container {
+                grid-template-columns: 1.2fr 1fr;
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px 20px;
+                gap: 15px;
+            }
+            .nav-logo {
+                font-size: 1.8rem;
+                letter-spacing: 6px;
+            }
+            .nav-menu {
+                gap: 0;
+                width: 100%;
+                justify-content: space-between;
+                border-top: 1px solid #eeeeee;
+                padding-top: 12px;
+            }
+            .nav-menu li {
+                flex: 1;
+                text-align: center;
+            }
+            .nav-menu a {
+                font-size: 0.68rem;
+                letter-spacing: 1.5px;
+                display: block;
+                padding: 4px 0;
+                font-weight: 600;
+            }
+            .hero-banner {
+                aspect-ratio: 16 / 9;
+            }
+            .hero-overlay h2 {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+            .hero-overlay p {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            .container {
+                padding: 20px 20px;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .item-overlay h3 {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+            }
+            .item-overlay p {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            .detail-hero {
+                aspect-ratio: 16 / 9;
+            }
+            .detail-content {
+                padding: 30px 20px;
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            .see-more-btn {
+                font-size: 0.8rem;
+                padding: 14px;
+            }
+            .more-works-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .subpage-title {
+                font-size: 2rem;
+            }
+            .project-info {
+                padding-top: 0;
+                border-top: none;
+            }
+            .project-info h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            .project-meta {
+                font-size: 0.7rem;
+                letter-spacing: 1.5px;
+                margin-bottom: 20px;
+            }
+            .project-description {
+                font-size: 0.9rem;
+                line-height: 1.7;
+                margin-bottom: 30px;
+            }
+            .photo-grid-title {
+                font-size: 0.75rem;
+                letter-spacing: 1.5px;
+                padding-top: 20px;
+                margin-bottom: 15px;
+            }
+            .project-photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin-bottom: 30px;
+            }
+            .photo-item {
+                aspect-ratio: 3 / 4;
+                background-color: #000000;
+            }
+            .photo-item img {
+                object-fit: contain;
+            }
+            .play-button-overlay {
+                width: 70px;
+                height: 70px;
+            }
+            .play-button-overlay::after {
+                border-width: 14px 0 14px 22px;
+                margin-left: 4px;
+            }
+            .back-button {
+                font-size: 0.75rem;
+                letter-spacing: 1.5px;
+            }
+            .menu-page-container {
+                padding: 40px 20px;
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .menu-page-header {
+                padding-bottom: 15px;
+                margin-bottom: 25px;
+            }
+            .menu-page-header h1 {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            .menu-page-body {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+            footer {
+                padding: 50px 0 30px 0;
+                font-size: 0.65rem;
+                margin: 0 20px;
+            }
+
+            .mobile-video-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                z-index: 2500;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+            .mobile-video-overlay.active {
+                display: flex;
+            }
+            .mobile-video-wrapper {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                position: relative;
+                box-shadow: 0 5px 30px rgba(0,0,0,0.8);
+            }
+            .mobile-video-wrapper iframe, .mobile-video-wrapper video {
+                width: 100%;
+                height: 100%;
+                background: #000;
+                border: none;
+            }
+            .close-mobile-video {
+                position: absolute;
+                top: -45px;
+                right: 5px;
+                color: #ffffff;
+                background: none;
+                border: none;
+                font-size: 0.85rem;
+                font-family: 'Montserrat', sans-serif;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a onclick="switchPage('main-page')" class="nav-logo">Portfolio</a>
+        <ul class="nav-menu">
+            <li><a id="menu-films" onclick="switchPage('main-page')" class="active-menu">My Project</a></li>
+            <li><a id="menu-tech" onclick="switchPage('technology-page')">About Me</a></li>
+            <li><a id="menu-careers" onclick="switchPage('careers-page')">Contact</a></li>
+            <li><a id="menu-more" onclick="switchPage('more-page')">More</a></li>
+        </ul>
+    </nav>
+
+    <div id="main-page" class="page-section">
+        <div class="hero-banner" onclick="navigateToDetail(
+            'Toby The Series', 
+            'RELEASED SINCE: 2024. DIRECTED BY: FAHRUL', 
+            'Through Toby The Series, I demonstrate end-to-end capabilities in both character and mechanical animation. The primary challenge achieved in this project was blending the rigid structure of locomotives with fluid, expressive character physics (squash and stretch). From developing expressive rigging systems to executing shot-by-shot animation, this project showcases my technical skill in delivering smooth, precise, and consistent motion within an independent production pipeline', 
+            'https://lh3.googleusercontent.com/d/18QLqTrOfgaBzG8NJJwvjqy3_A66x9hoE', 
+            'https://youtu.be/ko-KLz81EuU', 
+            'https://lh3.googleusercontent.com/d/1dmrg7hZOp1AjgG-V3ga2svhRQuoFKJ1C', 
+            ['https://lh3.googleusercontent.com/d/1sOQXybDYGzWl_7faKqcDmcx0ahu-7IIH', 'https://lh3.googleusercontent.com/d/1RMbW5R5jReLYvW4tXa2jRoohZaBC3Qzb', 'https://lh3.googleusercontent.com/d/1UATnNINPtV8RD6XjCIs283L10b3lB3iS', 'https://lh3.googleusercontent.com/d/17nFC9jyhaAAiK8o1W56kiEXgVHLa8Uqq'],
+            [
+                {title: 'Teaser PT INKA x Toby The Series', thumbnail: 'https://lh3.googleusercontent.com/d/1dmrg7hZOp1AjgG-V3ga2svhRQuoFKJ1C', youtubeUrl: 'https://youtu.be/ko-KLz81EuU'},
+                {title: 'TTS | Episode 1', thumbnail: 'https://lh3.googleusercontent.com/d/17nFC9jyhaAAiK8o1W56kiEXgVHLa8Uqq', youtubeUrl: 'https://youtu.be/mTHTIlNeVRc?si'},
+                {title: 'TTS | Episode 2', thumbnail: 'https://lh3.googleusercontent.com/d/1E3qPa9ncVYHM3p2repRsqgepJMEqAYYf', youtubeUrl: 'https://youtu.be/xuaUrx0R_ek?si'},
+                {title: 'TTS | Episode 3', thumbnail: 'https://lh3.googleusercontent.com/d/1_ewESt5IFybcqaFDc2SPdIA92KfQah_4', youtubeUrl: 'https://youtu.be/j2t2fxQalhU?si'},
+                {title: 'TTS | Episode 4', thumbnail: 'https://lh3.googleusercontent.com/d/1Lcg4ffeTCaqCB-k65sVBYyW7QXjrMFD3', youtubeUrl: 'https://youtu.be/x5oPKg4OTm8?si'},
+                {title: 'TTS | Episode 5', thumbnail: 'https://lh3.googleusercontent.com/d/1GO76U76XY1IHx4YagQWp_d-5j5g1TjEC', youtubeUrl: 'https://youtu.be/Du9yUeIosDM?si'}
+            ])">
+            <img src="https://lh3.googleusercontent.com/d/1CDVQRkjrX7QAK31fBQOZV0uCjlImGfxn" alt="Feature Project Banner">
+            <div class="hero-overlay">
+                <h2>Toby The Series</h2>
+                <p>View This Main Project Details</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <main class="portfolio-grid">
+                <div class="portfolio-item" onclick="navigateToDetail(
+                    'Dreamworks Reference', 
+                    'RELEASED PRIVATE: 2026. DIRECTED BY: ZAIM', 
+                    'Animation & Composition Study. My Version within DreamWorks’ World. This non-commercial personal project is an animation and matchmoving study. I took iconic background scenes from DreamWorks animation films, carefully removed the original characters, and integrated my own custom-animated character into the environment. The focus of this study was to challenge my skills in matching the lighting, camera perspective, and overall cinematic mood of an industry-standard production. Disclaimer-Original background plates and environments belong to DreamWorks Animation. Animated characters and integration by me. Purely for educational and portfolio purposes.', 
+                    'https://lh3.googleusercontent.com/d/162JlNN521hHI4ZLxq56tdXwdGC13xRl0', 
+                    'https://youtu.be/EWmJY30-O8U', 
+                    'https://lh3.googleusercontent.com/d/1PA3pXNQyIojhjhOAiG7BGh15OkZdmnKf', 
+                    ['https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv'],
+                    [
+                        {title: 'The Process Reel 1', thumbnail: 'https://lh3.googleusercontent.com/d/16ndVsbdFrAW4V7kqhbQHtMts5G_wCXEn', youtubeUrl: 'https://youtu.be/FCfYQZLLNmo'},
+                        {title: 'The Process Reel 2', thumbnail: 'https://lh3.googleusercontent.com/d/1V4gETK6lt2rhft2s5-yYyiBIQEOffj7B', youtubeUrl: 'https://youtu.be/5FajDjfLLwY'},
+                        {title: 'The Process Reel 3', thumbnail: 'https://lh3.googleusercontent.com/d/13aoUc1ZPm4hfAUBB6DqO8Qbg4uIjosrj', youtubeUrl: 'https://youtu.be/7_9pD9pF6bE'},
+                        {title: 'The Process Reel 4', thumbnail: 'https://lh3.googleusercontent.com/d/1VEnwO2cN8I4PkqvDYX0CSVD9lwagcUbi', youtubeUrl: 'https://youtu.be/AqMeZosdyOs'}
+                    ])">
+                    <img src="https://lh3.googleusercontent.com/d/162JlNN521hHI4ZLxq56tdXwdGC13xRl0" alt="Feature Project Banner">
+                    <div class="hero-overlay">
+                        <h2>Dreamworks Reference</h2>
+                        <p>View Project Details</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" onclick="navigateToDetail(
+                    'Mechanical System Robot', 
+                    'RELEASED SINCE: 2026. DIRECTED BY: ZAIM', 
+                    'This project focuses on the intersection of heavy mechanical physics and high-octane action. I explored the challenges of animating rigid, metallic structures while maintaining a sense of immense weight and kinetic energy. Every strike and movement is designed to showcase weight distribution and mechanical impact, ensuring that the character feels powerful and grounded. It’s a demonstration of my ability to combine technical mechanical constraints with fluid, dynamic combat choreography.', 
+                    'https://lh3.googleusercontent.com/d/1O23HAHpWxumbYSWNtYWwvc2imFyOt6nw', 
+                    'https://youtu.be/TA-nsNi6JWE', 
+                    'https://lh3.googleusercontent.com/d/1O23HAHpWxumbYSWNtYWwvc2imFyOt6nw', 
+                    ['https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv'],
+                    [
+                        {title: 'Action Sequence Block', thumbnail: 'https://lh3.googleusercontent.com/d/1O23HAHpWxumbYSWNtYWwvc2imFyOt6nw', youtubeUrl: 'https://youtu.be/TA-nsNi6JWE'}
+                    ])">
+                    <img src="https://lh3.googleusercontent.com/d/1O23HAHpWxumbYSWNtYWwvc2imFyOt6nw" alt="Feature Project Banner">
+                    <div class="hero-overlay">
+                        <h2>Mechanical System Robot</h2>
+                        <p>View project details</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" onclick="navigateToDetail(
+                    'Empty', 
+                    'RELEASED SINCE: -. DIRECTED BY: ZAIM', 
+                    'Sorry, there is no description for this page', 
+                    'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 
+                    'https://youtu.be/EWmJY30-O8U', 
+                    'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 
+                    ['https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv', 'https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv'],
+                    [])">
+                    <img src="https://lh3.googleusercontent.com/d/1ZJS730L1OH_JA6aLc2sPg1ZhZ-oGRKrv" alt="Feature Project Banner">
+                    <div class="hero-overlay">
+                        <h2>Empty</h2>
+                        <p>There is no project yet</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="detail-page" class="page-section">
+        <div class="detail-hero">
+            <img id="detail-hero-img" src="" alt="Detail Banner">
+        </div>
+        <div class="detail-content">
+            
+            <div class="video-section-wrapper">
+                <div class="video-container" id="videoContainerSlot">
+                    <div class="video-thumbnail-wrapper" id="thumbnailWrapper" onclick="playProjectVideo()">
+                        <img id="detail-video-thumbnail" src="" alt="Watch Trailer">
+                        <div class="play-button-overlay"></div>
+                    </div>
+                    <video id="mainVideoPlayer" class="main-video-player" controls src=""></video>
+                </div>
+                <button id="see-more-works-btn" class="see-more-btn" onclick="openMoreWorks()">See more works</button>
+            </div>
+
+            <div class="project-info">
+                <h1 id="detail-title">Judul Project</h1>
+                <div class="project-meta" id="detail-meta">RELEASED: 2026.</div>
+                <p class="project-description" id="detail-desc">Deskripsi film/animasi akan muncul di sini.</p>
+                
+                <div class="photo-grid-title">Image / Gallery</div>
+                <div class="project-photo-grid">
+                    <div class="photo-item" onclick="openLightbox('sub-img-1')"><img id="sub-img-1" src="" alt="Gallery 1"></div>
+                    <div class="photo-item" onclick="openLightbox('sub-img-2')"><img id="sub-img-2" src="" alt="Gallery 2"></div>
+                    <div class="photo-item" onclick="openLightbox('sub-img-3')"><img id="sub-img-3" src="" alt="Gallery 3"></div>
+                    <div class="photo-item" onclick="openLightbox('sub-img-4')"><img id="sub-img-4" src="" alt="Gallery 4"></div>
+                </div>
+                <button class="back-button" onclick="switchPage('main-page')">Back to My Project</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="more-works-subpage" class="page-section">
+        <div class="container">
+            <button class="back-button" onclick="closeMoreWorks()">Back to Project Detail</button>
+            <div class="subpage-header">
+                <h1 class="subpage-title" id="more-works-title">More Works</h1>
+            </div>
+            
+            <div class="more-works-grid" id="more-works-grid">
+                </div>
+        </div>
+    </div>
+    <div class="mobile-video-overlay" id="mobileVideoOverlay">
+        <div class="mobile-video-wrapper" id="mobileVideoWrapperSlot">
+            <button class="close-mobile-video" onclick="closeMobileVideo()">[ Close ]</button>
+            <video id="mobileVideoPlayer" controls src=""></video>
+        </div>
+    </div>
+
+    <div id="technology-page" class="page-section">
+        <div class="menu-page-container">
+            <div class="menu-page-left">
+                <div class="menu-page-header">
+                    <h1>About Me</h1>
+                </div>
+                <div class="menu-page-body">
+                    <p>I am a 3D Animator with 4 years of professional experience in Blender, dedicated to crafting expressive character performances and high octane motion. My expertise lies in the art of storytelling through movement and achieving high-end cinematic renders. With a deep technical mastery of Blender’s animation tools and rendering engines, I focus on delivering fluid, polished, and visually stunning results that meet professional industry standards.</p>
+                </div>
+            </div>
+            <div class="menu-page-image-slot">
+                <img src="https://lh3.googleusercontent.com/d/1t3ytUuIXF6KBAld-pjlXBRFmoXMYBh2I" alt="Technology Section Image">
+            </div>
+        </div>
+    </div>
+
+    <div id="careers-page" class="page-section">
+        <div class="menu-page-container">
+            <div class="menu-page-left">
+                <div class="menu-page-header">
+                    <h1>Contact</h1>
+                </div>
+                <div class="menu-page-body">
+                    <p>Looking for a 3D Animator to bring your characters to life or scale up your next big project? Let’s connect! Whether it's full-time opportunities, freelance collaborations, or just a technical chat about animation pipelines, feel free to reach out. I’d love to hear from you</p>
+                    <div class="contact-group">
+                        <div class="contact-label">Let's talk about it via Instagram: (Link below)</div>
+                        <a href="https://www.instagram.com/arul.animates?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="contact-btn" title="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-group">
+                        <div class="contact-label">Let's talk about it via Email: fahrulzaim10@gmail.com</div>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=fahrulzaim10@gmail.com" target="_blank" class="contact-btn" title="Email">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-page-image-slot">
+                <img src="https://lh3.googleusercontent.com/d/1Lj9eIssrEebCbIvJqcfKLSRmYgEAhaLt" alt="Contact Section Image">
+            </div>
+        </div>
+    </div>
+
+    <div id="more-page" class="page-section">
+        <div class="menu-page-container">
+            <div class="menu-page-left">
+                <div class="menu-page-header">
+                    <h1>More</h1>
+                </div>
+                <div class="menu-page-body">
+                    <p>A dedicated space for my creative side projects and visual concepts outside the main pipeline. This section features independent studies and specialized artwork where I explore unique themes, test specific visual styles, and push my creative boundaries as an artist.</p>
+                </div>
+            </div>
+            <div class="menu-page-image-slot">
+                <img src="https://lh3.googleusercontent.com/d/1lLmwqHnqr1klTSdpAYfMbYE6Vj-vDpMs" alt="More Section Image">
+            </div>
+        </div>
+    </div>
+
+    <div class="image-lightbox" id="imageLightbox">
+        <div class="lightbox-content">
+            <button class="close-lightbox" onclick="closeLightbox()">[ Close ]</button>
+            <img id="lightboxTargetImg" src="" alt="Lightbox View">
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Fahrul Izzuddin Zaim. All Rights Reserved.
+    </footer>
+
+    <script>
+        let currentYoutubeId = "";
+        let currentMoreWorks = [];
+        
+        let currentPage = 'main-page';
+        let isModalActive = false;
+
+        const mainPage = document.getElementById('main-page');
+        const detailPage = document.getElementById('detail-page');
+        const technologyPage = document.getElementById('technology-page');
+        const careersPage = document.getElementById('careers-page');
+        const morePage = document.getElementById('more-page');
+        const moreWorksSubpage = document.getElementById('more-works-subpage');
+
+        const menuFilms = document.getElementById('menu-films');
+        const menuTech = document.getElementById('menu-tech');
+        const menuCareers = document.getElementById('menu-careers');
+        const menuMore = document.getElementById('menu-more');
+
+        const detailHeroImg = document.getElementById('detail-hero-img');
+        const detailTitle = document.getElementById('detail-title');
+        const detailMeta = document.getElementById('detail-meta');
+        const detailDesc = document.getElementById('detail-desc');
+        const detailVideoThumbnail = document.getElementById('detail-video-thumbnail');
+        const thumbnailWrapper = document.getElementById('thumbnailWrapper');
+
+        const videoContainerSlot = document.getElementById('videoContainerSlot');
+        const mobileVideoWrapperSlot = document.getElementById('mobileVideoWrapperSlot');
+        const mobileVideoOverlay = document.getElementById('mobileVideoOverlay');
+        const lightbox = document.getElementById('imageLightbox');
+        const lightboxTargetImg = document.getElementById('lightboxTargetImg');
+
+        function extractYoutubeId(url) {
+            let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/);
+            return match ? match[1] : url; 
+        }
+
+        window.addEventListener('popstate', function(event) {
+            if (isModalActive) {
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+                if (mobileVideoOverlay.classList.contains('active')) {
+                    closeMobileVideo();
+                }
+                isModalActive = false;
+                window.history.pushState({page: currentPage}, '', '');
+                return;
+            }
+
+            if (event.state && event.state.page) {
+                switchPageSilent(event.state.page);
+            } else {
+                switchPageSilent('main-page');
+            }
+        });
+
+        window.history.replaceState({page: 'main-page'}, '', '');
+
+        function switchPage(pageId) {
+            switchPageSilent(pageId);
+            window.history.pushState({page: pageId}, '', '');
+        }
+
+        function switchPageSilent(pageId) {
+            currentPage = pageId;
+            resetVideoPlayers();
+            
+            const moreWorksGrid = document.getElementById('more-works-grid');
+            if(moreWorksGrid) {
+                moreWorksGrid.innerHTML = '';
+            }
+
+            mainPage.style.display = 'none';
+            detailPage.style.display = 'none';
+            technologyPage.style.display = 'none';
+            careersPage.style.display = 'none';
+            morePage.style.display = 'none';
+            moreWorksSubpage.style.display = 'none';
+
+            menuFilms.classList.remove('active-menu');
+            menuTech.classList.remove('active-menu');
+            menuCareers.classList.remove('active-menu');
+            menuMore.classList.remove('active-menu');
+
+            if (pageId === 'main-page') {
+                mainPage.style.display = 'block';
+                menuFilms.classList.add('active-menu');
+            } else if (pageId === 'detail-page') {
+                detailPage.style.display = 'block';
+                menuFilms.classList.add('active-menu');
+            } else if (pageId === 'technology-page') {
+                technologyPage.style.display = 'block';
+                menuTech.classList.add('active-menu');
+            } else if (pageId === 'careers-page') {
+                careersPage.style.display = 'block';
+                menuCareers.classList.add('active-menu');
+            } else if (pageId === 'more-page') {
+                morePage.style.display = 'block';
+                menuMore.classList.add('active-menu');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateToDetail(title, meta, description, heroImgSrc, videoSrcUrl, videoThumbnailUrl, subImagesArray, moreWorksArray = []) {
+            resetVideoPlayers(); 
+            
+            currentYoutubeId = extractYoutubeId(videoSrcUrl);
+            currentMoreWorks = moreWorksArray;
+
+            detailTitle.innerText = title;
+            detailMeta.innerText = meta;
+            detailDesc.innerText = description;
+            detailHeroImg.src = heroImgSrc;
+            
+            detailVideoThumbnail.src = videoThumbnailUrl || heroImgSrc;
+
+            thumbnailWrapper.style.display = 'block';
+            
+            const seeMoreBtn = document.getElementById('see-more-works-btn');
+            if(currentMoreWorks.length > 0) {
+                seeMoreBtn.style.display = 'block';
+            } else {
+                seeMoreBtn.style.display = 'none';
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const imgElement = document.getElementById(`sub-img-${i}`);
+                if (subImagesArray && subImagesArray[i-1]) {
+                    imgElement.src = subImagesArray[i-1];
+                    imgElement.parentElement.style.display = 'block';
+                } else {
+                    imgElement.parentElement.style.display = 'none';
+                }
+            }
+
+            switchPage('detail-page');
+        }
+
+        function playProjectVideo() {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                removeExistingPlayers(mobileVideoWrapperSlot);
+                
+                const iframe = document.createElement('iframe');
+                iframe.id = "mobileVideoPlayer";
+                iframe.src = `https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1`;
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.width = "100%";
+                iframe.style.height = "100%";
+                iframe.style.border = "none";
+                mobileVideoWrapperSlot.appendChild(iframe);
+                
+                mobileVideoOverlay.classList.add('active');
+                isModalActive = true;
+                window.history.pushState({modal: 'video'}, '', '');
+            } else {
+                thumbnailWrapper.style.display = 'none';
+                removeExistingPlayers(videoContainerSlot);
+
+                const iframe = document.createElement('iframe');
+                iframe.id = "mainVideoPlayer";
+                iframe.className = "main-video-player";
+                iframe.src = `https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1`;
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
+                videoContainerSlot.appendChild(iframe);
+            }
+        }
+
+        function removeExistingPlayers(container) {
+            if(!container) return;
+            const oldVideo = container.querySelector('video');
+            const oldIframe = container.querySelector('iframe');
+            
+            if (oldVideo) {
+                oldVideo.pause();
+                oldVideo.removeAttribute('src');
+                oldVideo.load();
+                oldVideo.remove();
+            }
+            if (oldIframe) {
+                oldIframe.src = "";
+                oldIframe.remove();
+            }
+        }
+
+        function resetVideoPlayers() {
+            removeExistingPlayers(videoContainerSlot);
+            const defaultVideo = document.createElement('video');
+            defaultVideo.id = "mainVideoPlayer";
+            defaultVideo.className = "main-video-player";
+            defaultVideo.controls = true;
+            videoContainerSlot.appendChild(defaultVideo);
+
+            removeExistingPlayers(mobileVideoWrapperSlot);
+            const defaultMobileVideo = document.createElement('video');
+            defaultMobileVideo.id = "mobileVideoPlayer";
+            defaultMobileVideo.controls = true;
+            mobileVideoWrapperSlot.appendChild(defaultMobileVideo);
+        }
+
+        function closeMobileVideo() {
+            removeExistingPlayers(mobileVideoWrapperSlot);
+            mobileVideoOverlay.classList.remove('active');
+        }
+
+        
+        function playSubpageVideo(element, ytUrl) {
+            const thumbWrap = element.querySelector('.video-thumbnail-wrapper');
+            if(thumbWrap) thumbWrap.style.display = 'none';
+
+            const container = element.querySelector('.subpage-video-slot');
+            
+            let ytId = extractYoutubeId(ytUrl);
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+            iframe.setAttribute('allow', 'autoplay; encrypted-media');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            container.appendChild(iframe);
+        }
+
+        function openMoreWorks() {
+            resetVideoPlayers(); 
+            
+            document.getElementById('detail-page').style.display = 'none';
+            document.getElementById('more-works-subpage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const grid = document.getElementById('more-works-grid');
+            grid.innerHTML = ''; 
+
+            currentMoreWorks.forEach(work => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'more-works-item-container';
+                itemDiv.innerHTML = `
+                    <div class="more-works-item" onclick="playSubpageVideo(this, '${work.youtubeUrl}')">
+                        <div class="video-thumbnail-wrapper">
+                            <img src="${work.thumbnail}" alt="${work.title}">
+                            <div class="play-button-overlay"></div>
+                        </div>
+                        <div class="subpage-video-slot"></div>
+                    </div>
+                    <div class="more-works-title">${work.title}</div>
+                `;
+                grid.appendChild(itemDiv);
+            });
+        }
+
+        function closeMoreWorks() {
+            const grid = document.getElementById('more-works-grid');
+            grid.innerHTML = ''; 
+
+            document.getElementById('more-works-subpage').style.display = 'none';
+            document.getElementById('detail-page').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        
+        function openLightbox(elementId) {
+            const clickedImgSrc = document.getElementById(elementId).src;
+            if (clickedImgSrc && !clickedImgSrc.includes(window.location.href)) {
+                lightboxTargetImg.src = clickedImgSrc;
+                lightbox.classList.add('active');
+                isModalActive = true;
+                window.history.pushState({modal: 'lightbox'}, '', '');
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightboxTargetImg.src = "";
+        }
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+                isModalActive = false;
+                window.history.replaceState({page: currentPage}, '', '');
+            }
+        });
+
+        mobileVideoOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileVideoOverlay) {
+                closeMobileVideo();
+                isModalActive = false;
+                window.history.replaceState({page: currentPage}, '', '');
+            }
+        });
+    </script>
+
+</body>
+</html>
